@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class chatClient 
 {
+
     public static void main(String[] args) throws Exception
     {
         Socket s = new Socket("localhost", 2222); 
@@ -12,7 +13,6 @@ public class chatClient
         System.out.println(question);
         Scanner localInput = new Scanner(System.in);
         PrintStream clientOutput = new PrintStream(s.getOutputStream());
-        
 
         Thread lt = new Thread() {
             public void run()
@@ -22,6 +22,12 @@ public class chatClient
                 {
                     line = clientInput.nextLine();
                     System.out.println(line);
+
+                    if (line.equalsIgnoreCase("/quit"))
+                    {
+                        //s.close();
+                        //break;
+                    }
                 }
             }
         };
@@ -32,6 +38,5 @@ public class chatClient
         {
             clientOutput.println(localInput.nextLine());
         }
-        
     }
 }

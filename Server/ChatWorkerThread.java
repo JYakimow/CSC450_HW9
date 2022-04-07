@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
@@ -40,6 +41,17 @@ public class ChatWorkerThread extends Thread
         {
             message = clientInput.nextLine();
             CORE.broadcastMessage(message);
+
+            if (message.equalsIgnoreCase("/quit"))
+            {
+                try {
+                    this.theClientSocket.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                break;
+            }
         }
     }
 }
